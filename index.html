@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rogério - Planos de Saúde</title>
+    <style>
+        /* CSS para o estilo do site */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            display: flex;
+            align-items: center;
+        }
+
+        #logo img {
+            width: 200px;
+            margin-right: 20px;
+            border-radius: 10px;
+            margin-left: 50px;
+        }
+
+        nav {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background-color: #007bff;
+                right: 0;
+                top: 60px;
+                width: 150px;
+                border-radius: 5px;
+            }
+
+            .nav-links a {
+                padding: 10px;
+                border-bottom: 1px solid #cfcfcf;
+                width: 100%;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+        }
+
+        section {
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .introducao {
+            background-image: url(banner-planos-de-saude-rj-min-1.jpg);
+            background-size: cover;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .introducao p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .marca-dagua {
+            background-image: url(rogerio3.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 160px);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .button {
+            background-color: #ff7b00;
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            font-size: 18px;
+            border-radius: 10px;
+            
+        }
+
+        footer {
+            background-color: #007bff;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        footer p,
+        footer img {
+            margin: 0;
+        }
+
+        footer a {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-left: auto;
+            /* Alinha o botão à direita */
+        }
+
+        .faq {
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            color: black;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .faq-content {
+            display: none;
+            padding: 10px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            color: black;
+        }
+
+        .features,
+        .questionario,
+        .faq-section,
+        .testemunhos-section {
+            background-color: #f1eeee;
+            opacity: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            margin: 20px 0;
+            gap: 30px;
+        }
+
+        .feature {
+            flex: 1;
+            padding: 5px;
+            box-sizing: border-box;
+            max-width: 25%;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .texto-centralizado {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .titulo-azul {
+            color: #007bff;
+        }
+
+        .texto-preto {
+            color: black;
+        }
+
+        .faq-title {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .testemunhos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .testemunho {
+            flex: 1;
+            max-width: 30%;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .faq-section {
+            margin-bottom: 50px;
+        }
+
+        .testemunhos-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .questionario {
+            text-align: center;
+        }
+
+        .questionario-container {
+            background-color: #f1c499 ;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .question-container {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .quantidade-select {
+            width: auto;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .idades-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+
+        .idade-input {
+            width: 60px;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .preferencia-container select,
+        .preferencia-container input {
+            width: auto;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        label,
+        input,
+        select {
+            margin-bottom: 10px;
+        }
+
+        .next-button,
+        .back-button {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input:invalid,
+        select:invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div id="logo">
+            <img src="rogerio3.png" alt="Logo de Rogério">
+            <h1>Planos de Saúde e Odontológico</h1>
+        </div>
+        <nav>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#questionario">Home</a>
+                <a href="#questionario">Planos de Saúde</a>
+                <a href="#beneficios">Benefícios</a>
+                <a href="#sobreNos">Sobre Nós</a>
+                <a href="#questionario">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Marca D'água -->
+    <div class="marca-dagua"></div> <!-- Marca d'água -->
+
+    <!-- Seção 1: Introdução -->
+    <section class="introducao">
+        <h2>Por que ter um Plano de Saúde?</h2>
+        <p>Invista em um plano de saúde e viva com a tranquilidade de estar sempre protegido e bem cuidado.</p>
+        <button class="button" onclick="window.location='#questionario'">Cotação</button>
+    </section>
+
+    <!-- Seção Especial: Qualidade e Segurança e Benefícios Exclusivos -->
+    <section class="features" id="beneficios">
+        <div class="feature">
+            <div class="feature-title">Qualidade e Segurança</div>
+            <p>Destaque sobre a confiança e segurança que Rogério oferece na escolha dos planos de saúde. O compromisso
+                com a qualidade dos serviços e a proteção dos clientes estão sempre em primeiro lugar.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-title">Benefícios Exclusivos</div>
+            <p>Destaque as vantagens de fazer a cotação diretamente com Rogério. Ofertas exclusivas, atendimento
+                diferenciado e condições especiais que você só encontra aqui.</p>
+        </div>
+    </section>
+
+    <div style="text-align: center;">
+        <button class="button" onclick="window.location='#questionario'">Cotação</button>
+    </div>
+
+    <!-- Nova Seção: Por que fazer o plano de saúde comigo? -->
+    <section style="text-align: center;" id="sobreNos">
+        <h2 class="titulo-azul">Por que fazer o plano de saúde comigo?</h2>
+        <div class="texto-centralizado">
+            <p class="texto-preto">Ao escolher fazer o seu plano de saúde comigo, você garante um atendimento
+                personalizado e focado nas suas necessidades específicas. Tenho a expertise e a dedicação necessárias
+                para encontrar as melhores opções do mercado que se adequam perfeitamente ao seu perfil. Meu compromisso
+                é com a sua satisfação e segurança, proporcionando não apenas um plano de saúde, mas uma verdadeira
+                parceria em cuidados médicos.</p>
+        </div>
+        <img src="fundo2.png" alt="Imagem ilustrativa" style="width: 450px; height: auto;">
+    </section>
+
+    <!-- Seção 4: Perguntas Frequentes -->
+    <!-- Seção do Questionário -->
+    <section class="questionario" id="questionario">
+        <h2 class="titulo-azul">Questionário para Cotação de Plano de Saúde</h2>
+        <div class="questionario-container">
+            <div class="question-container">
+                <form id="formularioQuestionario" onsubmit="return enviarCotacao();">
+                    <div id="step1" class="question-step">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" required>
+                    </div>
+
+                    <div id="step2" class="question-step hidden">
+                        <label for="quantidade">Quantas pessoas serão incluídas no plano?</label>
+                        <select id="quantidade" required onchange="atualizarCamposIdade()" class="quantidade-select">
+                            <option value="">Selecione</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <div id="idadesContainer" class="idades-container">
+                            <label class="idade-label">Idade:</label>
+                            <input type="number" class="idade-input" min="0" max="100" required>
+                        </div>
+                    </div>
+
+                    <div id="step3" class="question-step hidden">
+                        <div class="preferencia-container">
+                            <label for="preferenciaHospital">Você tem alguma preferência de hospital?</label>
+                            <select id="preferenciaHospital" onchange="mostrarCampoPreferencia();">
+                                <option value="Não">Não</option>
+                                <option value="Sim">Sim</option>
+                            </select>
+                            <input type="text" id="campoPreferencia" class="campo-condicional"
+                                placeholder="Qual hospital?" style="display: none;" />
+                        </div>
+                    </div>
+
+                    <div id="step4" class="question-step hidden">
+                        <div class="preferencia-container">
+                            <label for="planoAnterior">Você possui um plano de saúde anterior?</label>
+                            <select id="planoAnterior" onchange="mostrarCampoPlanoAnterior();">
+                                <option value="Não">Não</option>
+                                <option value="Sim">Sim</option>
+                            </select>
+                            <select id="planoAnteriorLista" class="hidden" onchange="verificaOutros();">
+                                <option value="">Selecione um plano</option>
+                                <option value="Amil">Amil</option>
+                                <option value="Bradesco Saúde">Bradesco Saúde</option>
+                                <option value="SulAmérica Saúde">SulAmérica Saúde</option>
+                                <option value="NotreDame Intermédica">NotreDame Intermédica</option>
+                                <option value="Hapvida">Hapvida</option>
+                                <option value="Unimed Nacional">Unimed Nacional</option>
+                                <option value="Unimed Paulistana">Unimed Paulistana</option>
+                                <option value="Unimed Rio">Unimed Rio</option>
+                                <option value="Prevent Senior">Prevent Senior</option>
+                                <option value="Porto Seguro Saúde">Porto Seguro Saúde</option>
+                                <option value="Allianz Saúde">Allianz Saúde</option>
+                                <option value="Golden Cross">Golden Cross</option>
+                                <option value="Care Plus">Care Plus</option>
+                                <option value="Assim Saúde">Assim Saúde</option>
+                                <option value="São Francisco Saúde">São Francisco Saúde</option>
+                                <option value="Santa Helena Saúde">Santa Helena Saúde</option>
+                                <option value="Intermédica">Intermédica</option>
+                                <option value="Unimed Seguros Saúde">Unimed Seguros Saúde</option>
+                                <option value="Unimed FESP">Unimed FESP</option>
+                                <option value="Unimed Campinas">Unimed Campinas</option>
+                                <option value="Unimed BH">Unimed BH</option>
+                                <option value="Unimed Curitiba">Unimed Curitiba</option>
+                                <option value="Bio Saúde">Bio Saúde</option>
+                                <option value="AMIL One">AMIL One</option>
+                                <option value="Viva Saúde">Viva Saúde</option>
+                                <option value="GNDI Saúde">GNDI Saúde</option>
+                                <option value="Plena Saúde">Plena Saúde</option>
+                                <option value="Samp">Samp</option>
+                                <option value="Cassi">Cassi</option>
+                                <option value="Mediservice">Mediservice</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                            <input type="text" id="campoPlanoAnterior" class="campo-condicional"
+                                placeholder="Qual plano?" style="display: none;" />
+                        </div>
+                    </div>
+
+                    <div id="step5" class="question-step hidden">
+                        <label for="planoDesejado">Qual plano de saúde você deseja?</label>
+                        <select id="planoDesejado">
+                            <option value="Amil">Amil</option>
+                            <option value="Bradesco Saúde">Bradesco Saúde</option>
+                            <option value="SulAmérica Saúde">SulAmérica Saúde</option>
+                            <option value="NotreDame Intermédica">NotreDame Intermédica</option>
+                            <option value="Hapvida">Hapvida</option>
+                            <option value="Unimed Nacional">Unimed Nacional</option>
+                            <option value="Unimed Paulistana">Unimed Paulistana</option>
+                            <option value="Unimed Rio">Unimed Rio</option>
+                            <option value="Prevent Senior">Prevent Senior</option>
+                            <option value="Porto Seguro Saúde">Porto Seguro Saúde</option>
+                            <option value="Allianz Saúde">Allianz Saúde</option>
+                            <option value="Golden Cross">Golden Cross</option>
+                            <option value="Care Plus">Care Plus</option>
+                            <option value="Assim Saúde">Assim Saúde</option>
+                            <option value="São Francisco Saúde">São Francisco Saúde</option>
+                            <option value="Santa Helena Saúde">Santa Helena Saúde</option>
+                            <option value="Intermédica">Intermédica</option>
+                            <option value="Unimed Seguros Saúde">Unimed Seguros Saúde</option>
+                            <option value="Unimed FESP">Unimed FESP</option>
+                            <option value="Unimed Campinas">Unimed Campinas</option>
+                            <option value="Unimed BH">Unimed BH</option>
+                            <option value="Unimed Curitiba">Unimed Curitiba</option>
+                            <option value="Bio Saúde">Bio Saúde</option>
+                            <option value="AMIL One">AMIL One</option>
+                            <option value="Viva Saúde">Viva Saúde</option>
+                            <option value="GNDI Saúde">GNDI Saúde</option>
+                            <option value="Plena Saúde">Plena Saúde</option>
+                            <option value="Samp">Samp</option>
+                            <option value="Cassi">Cassi</option>
+                            <option value="Mediservice">Mediservice</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <input type="text" id="campoPlanoDesejado" class="campo-condicional" placeholder="Qual plano?"
+                            style="display: none;" />
+                    </div>
+
+                    <div id="step6" class="question-step hidden">
+                        <label for="municipio">Qual o município de residência?</label>
+                        <input type="text" id="municipio" required>
+                    </div>
+
+                    <div id="step7" class="question-step hidden">
+                        <div class="preferencia-container">
+                            <label for="cnpj">Você possui CNPJ?</label>
+                            <select id="cnpj" onchange="mostrarCampoCNPJ();">
+                                <option value="Não">Não</option>
+                                <option value="Sim">Sim</option>
+                            </select>
+                            <input type="text" id="campoCNPJ" class="campo-condicional" placeholder="Qual o CNPJ?"
+                                style="display: none;" />
+                        </div>
+                    </div>
+
+                    <div id="step8" class="question-step hidden">
+                        <label for="profissao">Se não possui CNPJ, qual é a sua profissão?</label>
+                        <input type="text" id="profissao">
+                    </div>
+
+                    <div id="finalStep" class="question-step hidden">
+                        <p>Por favor, clique em 'Enviar' para concluir sua solicitação..</p>
+                        <button type="submit" class="button">Enviar Cotação</button>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="button" class="back-button" id="backButton"
+                            onclick="previousStep()">Voltar</button>
+                        <button type="button" class="next-button" id="nextButton" onclick="nextStep()">Próximo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="faq-section">
+        <h2 class="titulo-azul" style="text-align: center;">Alguma dúvida?</h2>
+        <div class="faq" onclick="toggleFAQ(this)">
+            <span class="faq-title">Como escolher o melhor plano de saúde?</span>
+            <span>&#9660;</span>
+        </div>
+        <div class="faq-content">
+            Com a ajuda de um consultor especializado, você pode comparar opções e escolher o plano que mais se adequa
+            às suas necessidades.
+        </div>
+        <div class="faq" onclick="toggleFAQ(this)">
+            <span class="faq-title">Quais são os benefícios de ter um plano de saúde?</span>
+            <span>&#9660;</span>
+        </div>
+        <div class="faq-content">
+            Acesso rápido a serviços médicos, exames, internações, e segurança para você e sua família.
+        </div>
+        <div class="faq" onclick="toggleFAQ(this)">
+            <span class="faq-title">Como funciona a cotação de planos?</span>
+            <span>&#9660;</span>
+        </div>
+        <div class="faq-content">
+            Você fornece algumas informações básicas e eu apresento as melhores opções de acordo com o seu perfil e
+            necessidades.
+        </div>
+    </section>
+
+    <!-- Seção 5: Testemunhos -->
+    <section class="testemunhos-section">
+        <h2 class="titulo-azul">O que nossos clientes dizem</h2>
+        <div class="testemunhos">
+            <div class="testemunho">
+                <p>"O atendimento do Rogério foi excepcional! Ele me ajudou a encontrar o plano ideal para a minha
+                    família."</p>
+                <strong>Ana Silva</strong>
+            </div>
+            <div class="testemunho">
+                <p>"Com o suporte do Rogério, consegui um plano com ótimo custo-benefício. Recomendo a todos!"</p>
+                <strong>João Oliveira</strong>
+            </div>
+            <div class="testemunho">
+                <p>"Rogério foi super atencioso e transparente durante todo o processo. Me sinto seguro com meu plano de
+                    saúde agora."</p>
+                <strong>Maria Pereira</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <img src="rogerio3.png" alt="Logo de Rogério" style="width: 50px;">
+        <p>Telefone: 21 96473-8527</p>
+        <p>Email: cabralpsaude@gmail.com</p>
+        <p>Rio de Janeiro-Centro</p>
+        <a href="https://api.whatsapp.com/send?phone=5521964738527&text=Ol%C3%A1,%20gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o,%20por%20favor." target="_blank">WhatsApp</a>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let currentStep = 0; // Variável para controlar o passo atual
+
+        // Função para alternar exibição do menu
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show'); // Alterna a classe show para exibir/ocultar os links
+        }
+
+        // Função para alternar a exibição das respostas nas perguntas frequentes
+        function toggleFAQ(element) {
+            var content = element.nextElementSibling;
+            content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+            var arrow = element.querySelector('span:last-child');
+            arrow.innerHTML = content.style.display === 'block' ? '&#9650;' : '&#9660;';
+        }
+
+        // Função para enviar cotação via WhatsApp
+        function enviarCotacao() {
+            const nome = document.getElementById('nome').value;
+            const quantidade = document.getElementById('quantidade').value;
+            const idades = Array.from(document.querySelectorAll('.idade-input')).map(input => input.value).join(', ');
+            const preferenciaHospital = document.getElementById('preferenciaHospital').value === "Sim" ? document.getElementById('campoPreferencia').value : "Não";
+            const planoAnterior = document.getElementById('planoAnterior').value === "Sim" ? document.getElementById('planoAnteriorLista').value : "Não";
+            const planoAnteriorSelecionado = document.getElementById('planoAnteriorLista').value === "Outros" ? document.getElementById('campoPlanoAnterior').value : planoAnterior;
+            const planoDesejado = document.getElementById('planoDesejado').value === "Outros" ? document.getElementById('campoPlanoDesejado').value : document.getElementById('planoDesejado').value;
+            const municipio = document.getElementById('municipio').value;
+            const cnpj = document.getElementById('cnpj').value === "Sim" ? document.getElementById('campoCNPJ').value : "Não";
+            const profissao = document.getElementById('profissao').value;
+
+            // Monta a mensagem para o WhatsApp
+            const mensagem = `*Nome:* ${nome}\n*Quantidade de pessoas:* ${quantidade}\n*Idades:* ${idades}\n*Preferência de Hospital:* ${preferenciaHospital}\n*Plano Anterior:* ${planoAnteriorSelecionado}\n*Plano Desejado:* ${planoDesejado}\n*Município:* ${municipio}\n*CNPJ:* ${cnpj}\n*Profissão:* ${profissao}`;
+
+            // Codifica a mensagem para URI
+            const whatsappUrl = `https://wa.me/+5521964738527?text=${encodeURIComponent(mensagem)}`;
+
+            // Verifica se os campos obrigatórios estão preenchidos
+            if (nome && quantidade && municipio) {
+                // Redireciona para o WhatsApp
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert("Por favor, preencha todos os campos obrigatórios antes de enviar.");
+            }
+
+            // Impede o envio do formulário
+            return false;
+        }
+
+        // Função para atualizar os campos de idade com base na quantidade selecionada
+        function atualizarCamposIdade() {
+            const quantidade = document.getElementById('quantidade').value;
+            const idadesContainer = document.getElementById('idadesContainer');
+            idadesContainer.innerHTML = '<label class="idade-label">Idade:</label>'; // Reseta os campos de idade
+
+            for (let i = 0; i < quantidade; i++) {
+                const idadeInput = document.createElement('input');
+                idadeInput.type = 'number';
+                idadeInput.className = 'idade-input';
+                idadeInput.placeholder = ''; // Placeholder vazio
+                idadeInput.min = 0;
+                idadeInput.max = 100;
+                idadeInput.required = true;
+                idadesContainer.appendChild(idadeInput);
+            }
+        }
+
+        // Funções para mostrar ou esconder campos condicionais
+        function mostrarCampoPreferencia() {
+            const preferenciaHospital = document.getElementById('preferenciaHospital').value;
+            document.getElementById('campoPreferencia').style.display = preferenciaHospital === "Sim" ? 'block' : 'none';
+        }
+
+        function mostrarCampoPlanoAnterior() {
+            const planoAnterior = document.getElementById('planoAnterior').value;
+            const planoAnteriorLista = document.getElementById('planoAnteriorLista');
+            document.getElementById('campoPlanoAnterior').style.display = planoAnterior === "Sim" ? 'block' : 'none';
+            planoAnteriorLista.style.display = planoAnterior === "Sim" ? 'block' : 'none'; // Exibe a lista de planos
+            document.getElementById('campoPlanoAnterior').style.display = planoAnteriorLista.value === "Outros" ? 'block' : 'none'; // Exibe o campo para digitar o plano anterior se "Outros" for selecionado
+        }
+
+        function verificaOutros() {
+            const planoAnteriorLista = document.getElementById('planoAnteriorLista');
+            document.getElementById('campoPlanoAnterior').style.display = planoAnteriorLista.value === "Outros" ? 'block' : 'none'; // Exibe o campo para digitar o plano anterior se "Outros" for selecionado
+        }
+
+        function mostrarCampoCNPJ() {
+            const cnpj = document.getElementById('cnpj').value;
+            document.getElementById('campoCNPJ').style.display = cnpj === "Sim" ? 'block' : 'none';
+        }
+
+        // Função para avançar para o próximo passo
+        function nextStep() {
+            const steps = document.querySelectorAll('.question-step');
+            const currentFields = steps[currentStep].querySelectorAll('input[required], select[required]');
+
+            let allFieldsFilled = true;
+            currentFields.forEach(field => {
+                if (!field.value) {
+                    allFieldsFilled = false;
+                    field.style.borderColor = 'red'; // Destaca o campo não preenchido
+                    alert('Por favor, preencha todos os campos obrigatórios antes de prosseguir.');
+                } else {
+                    field.style.borderColor = ''; // Remove o destaque quando preenchido
+                }
+            });
+
+            if (allFieldsFilled && currentStep < steps.length) {
+                steps[currentStep].classList.add('hidden'); // Oculta o passo atual
+                currentStep++; // Avança para o próximo passo
+                if (currentStep < steps.length) {
+                    steps[currentStep].classList.remove('hidden'); // Exibe o próximo passo
+                } else {
+                    document.getElementById('finalStep').classList.remove('hidden'); // Exibe o botão de enviar
+                }
+            }
+        }
+
+        // Função para voltar para o passo anterior
+        function previousStep() {
+            const steps = document.querySelectorAll('.question-step');
+            if (currentStep > 0) {
+                steps[currentStep].classList.add('hidden'); // Oculta o passo atual
+                currentStep--; // Retorna para o passo anterior
+                steps[currentStep].classList.remove('hidden'); // Exibe o passo anterior
+            }
+        }
+
+        // Inicializa
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('step1').classList.remove('hidden'); // Exibe o primeiro passo
+        });
+    </script>
+
+</body>
+
+</html>
